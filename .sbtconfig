@@ -1,0 +1,4 @@
+export SBT_OPTS="-Xmx2g -Xms2g -XX:MaxPermSize=256m -XX:PermSize=256m -XX:ReservedCodeCacheSize=192m $SBT_OPTS"
+# Add -Drelease=true to get release versions
+
+# vi: ft=sh
