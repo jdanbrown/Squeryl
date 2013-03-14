@@ -151,9 +151,16 @@ trait QueryDsl
 
     val c = s.connection
 
-    val originalAutoCommit = c.getAutoCommit
-    if(originalAutoCommit)
-      c.setAutoCommit(false)
+    val originalAutoCommit = try {
+      val x = c.getAutoCommit
+      if(x) c.setAutoCommit(false)
+      x
+    } catch {
+      case e:Exception => {
+        Utils.close(c)
+        throw e
+      }
+    }
 
     var txOk = false
     try {
